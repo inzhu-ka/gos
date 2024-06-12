@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register & Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "poppins", sans-serif;
+    }
+
+    .container {
+      background: #fff;
+      width: 450px;
+      padding: 1.5rem;
+      margin: 50px auto;
+      border-radius: 10px;
+      box-shadow: 0 20px 35px rgba(122, 122, 122, 0.9);
+    }
+    form {
+      margin: 0 2rem;
+    }
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    input {
+      color: inherit;
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #757575;
+      padding-left: 1.5rem;
+      font-size: 15px;
+    }
+    .input-group {
+      padding: 1% 0;
+      position: relative;
+    }
+    .input-group i {
+      position: absolute;
+      color: black;
+    }
+    input:focus {
+      background-color: transparent;
+      outline: transparent;
+      border-bottom: 2px solid hsl(327, 90%, 28%);
+    }
+    input::placeholder {
+      color: transparent;
+    }
+    label {
+      color: #757575;
+      position: relative;
+      left: 1.2em;
+      top: -1.3em;
+      cursor: auto;
+      transition: 0.3s ease all;
+    }
+    input:focus ~ label,
+    input:not(:placeholder-shown) ~ label {
+      top: -3em;
+      color: hsl(327, 90%, 28%);
+      font-size: 15px;
+    }
+    .recover {
+      text-align: right;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .recover a {
+      text-decoration: none;
+      color: #6a38c2;
+    }
+    .recover a:hover {
+      color: #6a38c2;
+      text-decoration: underline;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 8px 0;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      width: 100%;
+      background: #6a38c2;
+      color: white;
+      cursor: pointer;
+      transition: 0.9s;
+    }
+    button:hover {
+      background: #07001f;
+    }
+    .or {
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 4rem;
+      margin-top: 0.9rem;
+      font-weight: bold;
+    }
+    #signUpButton,
+    #signInButton {
+      color: #6a38c2;
+      border: none;
+      background-color: transparent;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    #signUpButton:hover,
+    #signInButton:hover {
+      text-decoration: underline;
+      color: #6a38c2;
+    }
+    :root {
+      --primary-color: #6a38c2;
+      --primary-color-dark: #6132b4;
+      --text-dark: #262626;
+      --text-light: #737373;
+      --extra-light: #e5e5e5;
+      --white: #ffffff;
+      --max-width: 1200px;
+
+      /* Dark mode variables */
+      --background-dark: #121212;
+      --text-dark-mode: #e0e0e0;
+      --primary-color-dark-mode: #bb86fc;
+      --card-background-dark: #1e1e1e;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--extra-light);
+      color: var(--text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: var(--background-dark);
+      color: var(--text-dark-mode);
+    }
+
+    .nav__header {
+      padding: 1rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--extra-light);
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .nav__header {
+      background-color: var(--card-background-dark);
+    }
+
+    .nav__menu__btn {
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .nav__menu__btn {
+      color: var(--text-dark-mode);
+    }
+
+    .nav__links a {
+      font-weight: 500;
+      color: var(--text-dark);
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .nav__links a {
+      color: var(--text-dark-mode);
+    }
+
+    .header__container h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 5.5rem;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .header__container h1 {
+      color: var(--text-dark-mode);
+    }
+
+    .header__container p {
+      max-width: 600px;
+      margin-inline: auto;
+      color: var(--text-light);
+      line-height: 2rem;
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .header__container p {
+      color: var(--text-dark-mode);
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      outline: none;
+      border: none;
+      font-size: 1rem;
+      color: var(--white);
+      background-color: var(--primary-color);
+      border-radius: 5px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .theme-toggle .ri-sun-line,
+    .theme-toggle .ri-moon-line {
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .theme-toggle .ri-sun-line {
+      display: none;
+    }
+
+    body.dark-mode .theme-toggle .ri-moon-line {
+      display: inline;
+    }
+
+    .theme-toggle .ri-sun-line {
+      display: inline;
+    }
+
+    body.dark-mode .theme-toggle .ri-sun-line {
+      display: none;
+    }
+
+    body.dark-mode .theme-toggle .ri-moon-line {
+      display: inline;
+    }
+
+    .explore__card {
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      background-color: var(--white);
+    }
+
+    body.dark-mode .explore__card {
+      background-color: var(--card-background-dark);
+    }
+
+    .job__card {
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      background-color: var(--white);
+    }
+
+    body.dark-mode .job__card {
+      background-color: var(--card-background-dark);
+    }
+
+    .client__card p {
+      margin-bottom: 1rem;
+      line-height: 1.75rem;
+      color: var(--text-dark);
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .client__card p {
+      color: var(--text-dark-mode);
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      outline: none;
+      border: none;
+      font-size: 1rem;
+      color: var (--white);
+      background-color: var(--primary-color);
+      border-radius: 5px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    html,
+    body {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+
+    nav {
+      position: fixed;
+      isolation: isolate;
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      z-index: 9;
+    }
+
+    .nav__header {
+      padding: 1rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--extra-light);
+    }
+
+    .nav__menu__btn {
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    .nav__links {
+      position: absolute;
+      top: 65px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+      background-color: var(--extra-light);
+      transition: 0.5s;
+      z-index: -1;
+      transform: translateY(-100%);
+    }
+
+    .nav__links.open {
+      transform: translateY(0);
+    }
+
+    .nav__links a {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .nav__links a:hover {
+      color: var(--primary-color);
+    }
+
+    .header__container {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .header__container h2 {
+      max-width: fit-content;
+      margin-inline: auto;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fa6021;
+      background-color: #fff8f5;
+      border-radius: 5rem;
+    }
+
+    .header__container h2 img {
+      max-width: 25px;
+    }
+
+    .header__container h1 {
+      margin-bottom: 1rem;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 5.5rem;
+    }
+
+    .header__container h1 span {
+      color: var(--primary-color);
+    }
+
+    .header__container p {
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-inline: auto;
+      color: var(--text-light);
+      line-height: 2rem;
+      text-align: center;
+    }
+
+    .header__btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .header__btns a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .header__btns a span {
+      padding: 5px 11px;
+      font-size: 1.5rem;
+      color: var(--white);
+      background-color: var(--primary-color);
+      border-radius: 100%;
+      transition: 0.3s;
+    }
+
+    .header__btns a:hover span {
+      box-shadow: 2px 2px 10px rgba(106, 56, 194, 0.5);
+    }
+
+    .header__container > img {
+      position: absolute;
+      max-width: 40px;
+      padding: 7px;
+      border-radius: 100%;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: -1;
+    }
+
+    .header__container > img:nth-child(1) {
+      top: 30%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+    }
+
+    .header__container > img:nth-child(2) {
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+    }
+
+    .header__container > img:nth-child(3) {
+      top: 75%;
+      left: 25%;
+      transform: translate(-50%, -50%);
+    }
+
+    .header__container > img:nth-child(4) {
+      top: 30%;
+      right: 20%;
+      transform: translate(50%, -50%);
+    }
+
+    .header__container > img:nth-child(5) {
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+    }
+
+    .header__container > img:nth-child(6) {
+      top: 75%;
+      right: 25%;
+      transform: translate(50%, -50%);
+    }
+
+    .explore__container {
+      margin-inline: auto;
+      width: 100%;
+      max-width: var(--max-width);
+      padding: 3rem 1rem;
+    }
+
+    .explore__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .explore__header a {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    .explore__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .explore__card {
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      background-color: var(--white);
+    }
+
+    .explore__card:hover {
+      box-shadow: 5px 5px 20px rgba(106, 56, 194, 0.5);
+    }
+
+    .explore__card img {
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .explore__card h3 {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+    }
+
+    .explore__card p {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      line-height: 2rem;
+    }
+
+    .explore__card a {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    .jobs__container {
+      margin-inline: auto;
+      width: 100%;
+      max-width: var(--max-width);
+      padding: 3rem 1rem;
+    }
+
+    .jobs__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .jobs__header a {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    .job__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .job__card {
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      background-color: var(--white);
+    }
+
+    .job__card:hover {
+      box-shadow: 5px 5px 20px rgba(106, 56, 194, 0.5);
+    }
+
+    .job__card h3 {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+    }
+
+    .job__card p {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      line-height: 2rem;
+    }
+
+    .job__card a {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    .clients__container {
+      margin-inline: auto;
+      width: 100%;
+      max-width: var(--max-width);
+      padding: 3rem 1rem;
+    }
+
+    .clients__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .clients__header a {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    .client__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .client__card {
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      background-color: var (--white);
+    }
+
+    .client__card:hover {
+      box-shadow: 5px 5px 20px rgba(106, 56, 194, 0.5);
+    }
+
+    .client__card img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .client__card p {
+      margin-bottom: 1rem;
+      line-height: 1.75rem;
+      color: var (--text-dark);
+      text-align: center;
+    }
+
+    .client__card h3 {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      text-align: center;
+    }
+    /* style.css */
+
+    /* Default light mode styles */
+    body {
+      background-color: white;
+      color: black;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: white;
+    }
+
+    .container {
+      /* Common styles for both modes */
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Light mode container */
+    body:not(.dark-mode) .container {
+      background-color: #f9f9f9;
+    }
+
+    /* Dark mode container */
+    body.dark-mode .container {
+      background-color: #1e1e1e;
+    }
+
+    .input-group input {
+      background-color: transparent;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      margin: 10px 0;
+      color: inherit; /* Adapt text color to current mode */
+    }
+
+    .input-group label {
+      color: inherit; /* Adapt label color to current mode */
+    }
+
+    .btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .links p {
+      margin: 10px 0;
+    }
+
+    .toggle-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+  <body>
+    <div class="toggle-container">
+      <button id="darkModeToggle">Toggle Dark Mode</button>
+    </div>
+    <div class="container" id="signup" style="display: none">
+      <h1 class="form-title">Register</h1>
+      <form method="post" action="">
+        <div id="signUpMessage" class="messageDiv" style="display: none"></div>
+        <div class="input-group">
+          <input type="text" id="fName" placeholder="First Name" required />
+          <label for="fname">First Name</label>
+        </div>
+        <div class="input-group">
+          <input type="text" id="lName" placeholder="Last Name" required />
+          <label for="lName">Last Name</label>
+        </div>
+        <div class="input-group">
+          <input type="email" id="rEmail" placeholder="Email" required />
+          <label for="rEmail">Email</label>
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="rPassword"
+            placeholder="Password"
+            required
+          />
+          <label for="rPassword">Password</label>
+        </div>
+        <button class="btn" id="submitSignUp">Sign Up</button>
+      </form>
+
+      <div class="links">
+        <p>Already Have Account ?</p>
+        <button id="signInButton">Sign In</button>
+      </div>
+    </div>
+
+    <div class="container" id="signIn">
+      <h1 class="form-title">Sign In</h1>
+      <form method="post" action="">
+        <div id="signInMessage" class="messageDiv" style="display: none"></div>
+
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email" required />
+          <label for="email">Email</label>
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <label for="password">Password</label>
+        </div>
+        <p class="recover">
+          <a href="#">Recover Password</a>
+        </p>
+        <button class="btn" id="submitSignIn">Sign In</button>
+      </form>
+
+      <div class="links">
+        <p>Don't have account yet?</p>
+        <button id="signUpButton">Sign Up</button>
+      </div>
+    </div>
+    <script>
+      const signUpButton = document.getElementById("signUpButton");
+      const signInButton = document.getElementById("signInButton");
+      const signInForm = document.getElementById("signIn");
+      const signUpForm = document.getElementById("signup");
+
+      signUpButton.addEventListener("click", function () {
+        signInForm.style.display = "none";
+        signUpForm.style.display = "block";
+      });
+      signInButton.addEventListener("click", function () {
+        signInForm.style.display = "block";
+        signUpForm.style.display = "none";
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+
+        // Check for saved user preference, if any, on load of the website
+        if (localStorage.getItem("darkMode") === "enabled") {
+          document.body.classList.add("dark-mode");
+        }
+
+        darkModeToggle.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+
+          // Save the user preference in localStorage
+          if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+          } else {
+            localStorage.removeItem("darkMode");
+          }
+        });
+      });
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+      import {
+        getFirestore,
+        setDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAA9ns0IdpLyWVf1M-xKfiA4b3VFqczDgs",
+        authDomain: "fir-585ec.firebaseapp.com",
+        databaseURL: "https://fir-585ec-default-rtdb.firebaseio.com",
+        projectId: "fir-585ec",
+        storageBucket: "fir-585ec.appspot.com",
+        messagingSenderId: "241975241780",
+        appId: "1:241975241780:web:114bd6fc3a9cf7f490ee61",
+        measurementId: "G-6C5QH60L6B",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      function showMessage(message, divId) {
+        var messageDiv = document.getElementById(divId);
+        messageDiv.style.display = "block";
+        messageDiv.innerHTML = message;
+        messageDiv.style.opacity = 1;
+        setTimeout(function () {
+          messageDiv.style.opacity = 0;
+        }, 5000);
+      }
+      const signUp = document.getElementById("submitSignUp");
+      signUp.addEventListener("click", (event) => {
+        event.preventDefault();
+        const email = document.getElementById("rEmail").value;
+        const password = document.getElementById("rPassword").value;
+        const firstName = document.getElementById("fName").value;
+        const lastName = document.getElementById("lName").value;
+
+        const auth = getAuth();
+        const db = getFirestore();
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            const userData = {
+              email: email,
+              firstName: firstName,
+              lastName: lastName,
+            };
+            showMessage("Account Created Successfully", "signUpMessage");
+            const docRef = doc(db, "users", user.uid);
+            setDoc(docRef, userData)
+              .then(() => {
+                window.location.href = "index1.html";
+              })
+              .catch((error) => {
+                console.error("error writing document", error);
+              });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            if (errorCode == "auth/email-already-in-use") {
+              showMessage("Email Address Already Exists !!!", "signUpMessage");
+            } else {
+              showMessage("unable to create User", "signUpMessage");
+            }
+          });
+      });
+
+      const signIn = document.getElementById("submitSignIn");
+      signIn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const auth = getAuth();
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            showMessage("login is successful", "signInMessage");
+            const user = userCredential.user;
+            localStorage.setItem("loggedInUserId", user.uid);
+            window.location.href = "homepage.html";
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            if (errorCode === "auth/invalid-credential") {
+              showMessage("Incorrect Email or Password", "signInMessage");
+            } else {
+              showMessage("Account does not Exist", "signInMessage");
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
